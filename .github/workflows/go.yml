@@ -34,7 +34,9 @@ jobs:
 
     - name: Test
       run: go test -v ./...
-
+    
+    - uses: actions/checkout@master
+      
     - name: coverage
       uses: codecov/codecov-action@v1
       with:
