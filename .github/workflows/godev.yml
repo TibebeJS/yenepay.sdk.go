@@ -5,6 +5,8 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
       - name: Publish doc to go.dev packages
         run: |
           git pull
