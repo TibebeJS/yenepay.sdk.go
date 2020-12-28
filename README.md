@@ -3,13 +3,16 @@
 ![tests](https://github.com/TibebeJS/yenepay.sdk.go/workflows/tests/badge.svg)
 [![codecov](https://codecov.io/gh/TibebeJS/yenepay.sdk.go/branch/main/graph/badge.svg?token=8M2G27NVA5)](https://codecov.io/gh/TibebeJS/yenepay.sdk.go)
 ![linter](https://github.com/TibebeJS/yenepay.sdk.go/workflows/linter/badge.svg)
-
+![Go Report Card](https://goreportcard.com/badge/github.com/tibebejs/yenepay.sdk.go)
 
 A Go library to integrate YenePay as a Payment method in Go Web Applications.
 
 ## Getting Started ##
-
-> To Be Documented Soon
+> ---
+>
+> Section To Be Documented Soon
+>
+> ---
 
 ## Installation ##
 
