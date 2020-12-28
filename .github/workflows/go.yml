@@ -35,3 +35,9 @@ jobs:
     - name: Test
       run: go test -v ./...
     
+    - name: Publish doc to go.dev packages
+      run: |
+        git pull
+        export latest="$(git describe --tags `git rev-list --tags --max-count=1`)"
+        curl https://proxy.golang.org/github.com/TibebeJS/yenepay.sdk.go/@v/$latest.info
+    
