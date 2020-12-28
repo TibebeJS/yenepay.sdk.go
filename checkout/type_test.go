@@ -1,17 +1,18 @@
 package checkout
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
 )
 
 func TestCheckoutTypes(t *testing.T) {
-	if !cmp.Equal(ExpressCheckout.Type, "Express") {
-		t.Errorf("expected '%s' as Type, but found '%s' instead", "Express", ExpressCheckout.Type)
+	if !cmp.Equal(fmt.Sprintf("%s", ExpressCheckout), "Express") {
+		t.Errorf("expected '%s', but found '%s' instead", "Express", ExpressCheckout)
 	}
 
-	if !cmp.Equal(CartCheckout.Type, "Cart") {
-		t.Errorf("expected '%s' as Type, but found '%s' instead", "Cart", CartCheckout.Type)
+	if !cmp.Equal(fmt.Sprintf("%s", CartCheckout), "Cart") {
+		t.Errorf("expected '%s', but found '%s' instead", "Cart", CartCheckout)
 	}
 }

@@ -1,13 +1,7 @@
 package checkout
 
-type CheckoutType struct {
-	Type string
-}
+type CheckoutType string
 
-var ExpressCheckout = CheckoutType{
-	Type: "Express",
-}
+const ExpressCheckout CheckoutType = "Express"
 
-var CartCheckout = CheckoutType{
-	Type: "Cart",
-}
+const CartCheckout CheckoutType = "Cart"
