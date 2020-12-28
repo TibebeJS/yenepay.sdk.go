@@ -6,23 +6,40 @@
 
 A Go library to integrate YenePay as a Payment method in Go Web Applications.
 
-## Getting Started
+## Getting Started ##
 
 > To Be Documented Soon
 
-## Pre-requisite
+## Installation ##
 
-> To Be Documented Soon
+```
+$ go get -u github.com/TibebeJs/yenepay.sdk.go
+```
 
-## Installation
+Alternatively, If you are using go-mod to manage your project, simply add yenepay to your `go.mod` file:
 
-> To Be Documented Soon
+```
+module github.com/x/y
 
-## Implementation
+go 1.15
 
-> To Be Documented Soon
+require (
+    github.com/TibebeJs/yenepay.sdk.go
+)
+```
 
-## Testing
+And simply import in your source code.
+
+## Examples/Demos ##
+
+ - [Sample Shop Site](github.com/TibebeJs/yenepay.sample-shop.go/tree/main/).
+
+
+## Bugs ##
+
+Bugs or suggestions? Visit the [issue tracker](https://github.com/TibebeJS/yenepay.sdk.go/issues) 
+
+## Testing ##
 To run the tests, use the following command:
 ```
 $ go test -v ./...
@@ -40,7 +57,7 @@ After installation, use the following to execute the tests:
 $ goconvey
 ```
 
-## Deployment
+## Deployment ##
 
 > To Be Documented Soon
 
