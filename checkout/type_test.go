@@ -7,11 +7,11 @@ import (
 )
 
 func TestCheckoutTypes(t *testing.T) {
-	if !cmp.Equal(ExpressCheckout.Type, "Express") {
-		t.Errorf("expected '%s' as Type, but found '%s' instead", "Express", ExpressCheckout.Type)
+	if !cmp.Equal(string(ExpressCheckout), "Express") {
+		t.Errorf("expected '%s', but found '%s' instead", "Express", ExpressCheckout)
 	}
 
-	if !cmp.Equal(CartCheckout.Type, "Cart") {
-		t.Errorf("expected '%s' as Type, but found '%s' instead", "Cart", CartCheckout.Type)
+	if !cmp.Equal(string(CartCheckout), "Cart") {
+		t.Errorf("expected '%s', but found '%s' instead", "Cart", CartCheckout)
 	}
 }
