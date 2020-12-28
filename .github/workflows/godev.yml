@@ -3,6 +3,7 @@ name: godev
 
 jobs:
   publish:
+    runs-on: ubuntu-latest
     steps:
       - name: Publish doc to go.dev packages
         run: |
