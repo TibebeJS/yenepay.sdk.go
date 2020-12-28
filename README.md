@@ -1,5 +1,7 @@
 # YenePaySDK - GoLang #
+[![Go Reference](https://pkg.go.dev/badge/github.com/TibebeJs/yenepay.sdk.go.svg)](https://pkg.go.dev/github.com/TibebeJs/yenepay.sdk.go) 
 ![Go](https://github.com/TibebeJS/yenepay.sdk.go/workflows/Go/badge.svg) [![codecov](https://codecov.io/gh/TibebeJS/yenepay.sdk.go/branch/main/graph/badge.svg?token=8M2G27NVA5)](https://codecov.io/gh/TibebeJS/yenepay.sdk.go)
+
 
 A Go library to integrate YenePay as a Payment method in Go Web Applications.
 
@@ -22,7 +24,7 @@ A Go library to integrate YenePay as a Payment method in Go Web Applications.
 ## Testing
 To run the tests, use the following command:
 ```
-$ go test ./...
+$ go test -v ./...
 ```
 
 Alternatively, you may use [`goconvey`](https://github.com/smartystreets/goconvey) (Recommended)
