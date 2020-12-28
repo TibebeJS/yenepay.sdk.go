@@ -1,0 +1,12 @@
+on: [push, pull_request]
+name: godev
+
+jobs:
+  publish:
+    steps:
+      - name: Publish doc to go.dev packages
+        run: |
+          git pull
+          export latest="$(git describe --tags `git rev-list --tags --max-count=1`)"
+          curl https://proxy.golang.org/github.com/tibebejs/yenepay.sdk.go/@v/$latest.info
+          
