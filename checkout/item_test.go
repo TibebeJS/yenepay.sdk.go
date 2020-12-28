@@ -6,7 +6,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 )
 
-func TestCheckoutItemConstructor(t *testing.T) {
+func TestNewCheckoutItem(t *testing.T) {
 	item := NewCheckoutItem(
 		"2",
 		"item-name",
@@ -32,6 +32,6 @@ func TestCheckoutItemConstructor(t *testing.T) {
 	}
 
 	if !cmp.Equal(item, expected) {
-		t.Error("Constructor is not working as expected")
+		t.Error("NewCheckoutItem Constructor is not working as expected")
 	}
 }
