@@ -1,8 +1,6 @@
 package checkout
 
-import (
-	"encoding/json"
-)
+import "encoding/json"
 
 type CheckoutOption struct {
 	UseSandbox            bool
@@ -21,35 +19,41 @@ type CheckoutOption struct {
 	TotalItemsHandlingFee float64
 }
 
+func (self *CheckoutOption) GetCartFields() interface{} {
+	return struct {
+		UseSandbox      bool
+		Process         CheckoutType
+		MerchantId      string
+		SuccessUrl      string
+		CancelUrl       string
+		IPNUrl          string
+		FailureUrl      string
+		ExpiresAfter    int
+		MerchantOrderId string
+	}{
+		self.UseSandbox,
+		self.Process,
+		self.MerchantId,
+		self.SuccessUrl,
+		self.CancelUrl,
+		self.IPNUrl,
+		self.FailureUrl,
+		self.ExpiresAfter,
+		self.MerchantOrderId,
+	}
+}
+
 func (self *CheckoutOption) ToJSON(forCart bool) (string, error) {
-	var data []byte
-	var err error
+
+	var fields interface{}
 
 	if forCart {
-		data, err = json.Marshal(struct {
-			UseSandbox      bool
-			Process         CheckoutType
-			MerchantId      string
-			SuccessUrl      string
-			CancelUrl       string
-			IPNUrl          string
-			FailureUrl      string
-			ExpiresAfter    int
-			MerchantOrderId string
-		}{
-			self.UseSandbox,
-			self.Process,
-			self.MerchantId,
-			self.SuccessUrl,
-			self.CancelUrl,
-			self.IPNUrl,
-			self.FailureUrl,
-			self.ExpiresAfter,
-			self.MerchantOrderId,
-		})
+		fields = self.GetCartFields()
 	} else {
-		data, err = json.Marshal(self)
+		fields = self
 	}
+
+	data, err := json.Marshal(fields)
 
 	if err != nil {
 		return "", err
