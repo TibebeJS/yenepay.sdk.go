@@ -7,6 +7,8 @@ jobs:
     steps:
       - name: Check out code into the Go module directory
         uses: actions/checkout@v2
+        with:
+          ref: main 
       - name: Publish doc to go.dev packages
         run: |
           git pull
