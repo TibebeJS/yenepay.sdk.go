@@ -3,7 +3,8 @@ package checkout
 import (
 	"testing"
 
-	"github.com/google/go-cmp/cmp"
+	"github.com/go-playground/validator"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -23,9 +24,7 @@ func TestNewPdtRequestModel(t *testing.T) {
 		"PDT",
 	}
 
-	if !cmp.Equal(pdt, expected) {
-		t.Error("NewPdtRequestModel Constructor is not working as expected")
-	}
+	assert.Exactly(t, pdt, expected)
 }
 
 func TestPDTToJSON(t *testing.T) {
@@ -44,7 +43,14 @@ func TestPDTToJSON(t *testing.T) {
 		"RequestType": "PDT"
 	}
 	`
-
 	require.JSONEq(t, expected, actual)
 
+	_, actualError := (&PdtRequestModel{}).ToJSON()
+
+	if assert.Error(t, actualError) {
+		for _, err := range actualError.(validator.ValidationErrors) {
+			assert.Exactly(t, "PdtToken", err.Field())
+			assert.Exactly(t, "required", err.Tag())
+		}
+	}
 }
