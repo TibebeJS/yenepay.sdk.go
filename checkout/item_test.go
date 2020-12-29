@@ -3,12 +3,13 @@ package checkout
 import (
 	"testing"
 
+	"github.com/go-playground/validator"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func TestItemToJSON(t *testing.T) {
-	actual, e := NewCheckoutItem(
+	actual, _ := NewCheckoutItem(
 		"2",
 		"item-name",
 		10.0,
@@ -36,6 +37,21 @@ func TestItemToJSON(t *testing.T) {
 
 	require.JSONEq(t, expected, actual)
 
+	_, actualError := (&CheckoutItem{}).ToJSON()
+
+	if assert.Error(t, actualError) {
+		for _, err := range actualError.(validator.ValidationErrors) {
+			switch err.Field() {
+			case "ItemId":
+				assert.Exactly(t, "ItemId", err.Field())
+				assert.Exactly(t, "required", err.Tag())
+			case "ItemName":
+				assert.Exactly(t, "ItemName", err.Field())
+				assert.Exactly(t, "required", err.Tag())
+			}
+
+		}
+	}
 }
 
 func TestNewCheckoutItem(t *testing.T) {
