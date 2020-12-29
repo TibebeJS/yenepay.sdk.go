@@ -8,11 +8,10 @@
 A Go library to integrate YenePay as a Payment method in Go Web Applications.
 
 ## Getting Started ##
-> ---
->
-> Section To Be Documented Soon
->
-> ---
+
+To add YenePay to your application and start collecting payments, you will first need to register on YenePay as a merchant and get your seller code. You can do that from https://www.yenepay.com/merchant.
+
+Also make sure to enable "sandbox" mode to not incur any charges during developing/testing.
 
 ## Installation ##
 
@@ -42,6 +41,13 @@ And simply import in your source code.
 ## Bugs ##
 
 Bugs or suggestions? Visit the [issue tracker](https://github.com/TibebeJS/yenepay.sdk.go/issues) 
+
+## Contribution
+
+Any contribution is highly appreciated (bug fixes, feature implementation, etc..)
+
+Please check this section to [[Contribute]](CONTRIBUTING.md).
+
 
 ## Deployment ##
 
