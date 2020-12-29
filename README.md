@@ -42,6 +42,13 @@ And simply import in your source code.
 
 Bugs or suggestions? Visit the [issue tracker](https://github.com/TibebeJS/yenepay.sdk.go/issues) 
 
+## Contribution
+
+Any contribution is highly appreciated (bug fixes, feature implementation, etc..)
+
+Please check this section to [[Contribute]](CONTRIBUTING.md).
+
+
 ## Deployment ##
 
 > To Be Documented Soon
