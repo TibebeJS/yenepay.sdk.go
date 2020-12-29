@@ -25,8 +25,8 @@ func NewPdtRequestModel(
 	}
 }
 
-func (self *PdtRequestModel) ToJSON() ([]byte, error) {
-	return json.Marshal(struct {
+func (self *PdtRequestModel) ToJSON() (string, error) {
+	data, err := json.Marshal(struct {
 		PdtToken      string
 		TransactionId string
 		MerchantId    string
@@ -37,4 +37,9 @@ func (self *PdtRequestModel) ToJSON() ([]byte, error) {
 		self.MerchantId,
 		self.RequestType,
 	})
+
+	if err != nil {
+		return "", err
+	}
+	return string(data), nil
 }
