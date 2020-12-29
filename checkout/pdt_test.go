@@ -24,7 +24,7 @@ func TestNewPdtRequestModel(t *testing.T) {
 		"PDT",
 	}
 
-	assert.Exactly(t, pdt, expected)
+	assert.Exactly(t, expected, pdt)
 }
 
 func TestPDTToJSON(t *testing.T) {

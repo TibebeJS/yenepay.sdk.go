@@ -3,12 +3,12 @@ package checkout
 import (
 	"testing"
 
-	"github.com/google/go-cmp/cmp"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func TestItemToJSON(t *testing.T) {
-	actual, _ := NewCheckoutItem(
+	actual, e := NewCheckoutItem(
 		"2",
 		"item-name",
 		10.0,
@@ -63,7 +63,5 @@ func TestNewCheckoutItem(t *testing.T) {
 		0.0,
 	}
 
-	if !cmp.Equal(item, expected) {
-		t.Error("NewCheckoutItem Constructor is not working as expected")
-	}
+	assert.Exactly(t, expected, item)
 }

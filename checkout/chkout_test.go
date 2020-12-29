@@ -3,12 +3,11 @@ package checkout
 import (
 	"testing"
 
-	"github.com/google/go-cmp/cmp"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNewYenePayCheckOut(t *testing.T) {
-	checkout := NewYenePayCheckOut()
+	actual := NewYenePayCheckOut()
 
 	expected := &YenePayCheckOut{
 		"https://www.yenepay.com/checkout/Home/Process/",
@@ -19,9 +18,7 @@ func TestNewYenePayCheckOut(t *testing.T) {
 		"https://testapi.yenepay.com/api/verify/pdt/",
 	}
 
-	if !cmp.Equal(checkout, expected) {
-		t.Error("NewYenePayCheckOut Constructor is not working as expected")
-	}
+	assert.Exactly(t, expected, actual)
 }
 
 func TestGetCheckoutUrlForExpress(t *testing.T) {
