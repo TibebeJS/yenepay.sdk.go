@@ -8,11 +8,10 @@
 A Go library to integrate YenePay as a Payment method in Go Web Applications.
 
 ## Getting Started ##
-> ---
->
-> Section To Be Documented Soon
->
-> ---
+
+To add YenePay to your application and start collecting payments, you will first need to register on YenePay as a merchant and get your seller code. You can do that from https://www.yenepay.com/merchant.
+
+Also make sure to enable "sandbox" mode to not incur any charges during developing/testing.
 
 ## Installation ##
 
