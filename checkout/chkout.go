@@ -5,23 +5,23 @@ import (
 )
 
 type YenePayCheckOut struct {
-	checkoutBaseUrlProd    string
-	checkoutBaseUrlSandbox string
-	ipnVerifyUrlProd       string
-	ipnVerifyUrlSandbox    string
-	pdtUrlProd             string
-	pdtUrlSandbox          string
+	CheckoutBaseUrlProd    string
+	CheckoutBaseUrlSandbox string
+	IpnVerifyUrlProd       string
+	IpnVerifyUrlSandbox    string
+	PdtUrlProd             string
+	PdtUrlSandbox          string
 }
 
 func NewYenePayCheckOut() *YenePayCheckOut {
 	self := &YenePayCheckOut{}
 
-	self.checkoutBaseUrlProd = "https://www.yenepay.com/checkout/Home/Process/"
-	self.checkoutBaseUrlSandbox = "https://test.yenepay.com/Home/Process/"
-	self.ipnVerifyUrlProd = "https://endpoints.yenepay.com/api/verify/ipn/"
-	self.ipnVerifyUrlSandbox = "https://testapi.yenepay.com/api/verify/ipn/"
-	self.pdtUrlProd = "https://endpoints.yenepay.com/api/verify/pdt/"
-	self.pdtUrlSandbox = "https://testapi.yenepay.com/api/verify/pdt/"
+	self.CheckoutBaseUrlProd = "https://www.yenepay.com/checkout/Home/Process/"
+	self.CheckoutBaseUrlSandbox = "https://test.yenepay.com/Home/Process/"
+	self.IpnVerifyUrlProd = "https://endpoints.yenepay.com/api/verify/ipn/"
+	self.IpnVerifyUrlSandbox = "https://testapi.yenepay.com/api/verify/ipn/"
+	self.PdtUrlProd = "https://endpoints.yenepay.com/api/verify/pdt/"
+	self.PdtUrlSandbox = "https://testapi.yenepay.com/api/verify/pdt/"
 
 	return self
 }
@@ -30,10 +30,10 @@ func (self *YenePayCheckOut) GetCheckoutUrlForExpress(checkoutOptions *CheckoutO
 
 	v, _ := query.Values(checkoutOptions.GetCartFields())
 
-	checkoutUrl := self.checkoutBaseUrlProd + "?" + v.Encode()
+	checkoutUrl := self.CheckoutBaseUrlProd + "?" + v.Encode()
 
 	if checkoutOptions.UseSandbox {
-		checkoutUrl = self.checkoutBaseUrlSandbox + "?" + v.Encode()
+		checkoutUrl = self.CheckoutBaseUrlSandbox + "?" + v.Encode()
 	}
 
 	return checkoutUrl
