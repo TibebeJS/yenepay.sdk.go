@@ -1,9 +1,13 @@
 package checkout
 
-import "encoding/json"
+import (
+	"encoding/json"
+
+	"github.com/go-playground/validator"
+)
 
 type PdtRequestModel struct {
-	PdtToken      string
+	PdtToken      string `validate:"required,min=1"`
 	TransactionId string
 	MerchantId    string
 	UseSandbox    bool `json:"-"`
@@ -26,11 +30,16 @@ func NewPdtRequestModel(
 }
 
 func (self *PdtRequestModel) ToJSON() (string, error) {
-	data, err := json.Marshal(self)
+	var validate *validator.Validate = validator.New()
+
+	err := validate.Struct(self)
 
 	if err != nil {
 		return "", err
+	} else {
+		data, _ := json.Marshal(self)
+
+		return string(data), nil
 	}
 
-	return string(data), nil
 }
