@@ -3,12 +3,12 @@ package checkout
 import (
 	"testing"
 
-	"github.com/google/go-cmp/cmp"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func TestNewCheckoutOption(t *testing.T) {
-	options := NewCheckoutOption(
+	actual := NewCheckoutOption(
 		true,
 		ExpressCheckout,
 		"2",
@@ -42,9 +42,7 @@ func TestNewCheckoutOption(t *testing.T) {
 		0.0,
 	}
 
-	if !cmp.Equal(options, expected) {
-		t.Error("NewCheckoutOption Constructor is not working as expected")
-	}
+	assert.Exactly(t, expected, actual)
 }
 
 func TestOptionsToJSONForCart(t *testing.T) {

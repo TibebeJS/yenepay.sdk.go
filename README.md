@@ -35,7 +35,7 @@ And simply import in your source code.
 
 ## Examples/Demos ##
 
- - [Sample Shop Site](github.com/TibebeJs/yenepay.sample-shop.go/tree/main/).
+ - [Sample Shop Site](https://github.com/TibebeJs/yenepay.sample-shop.go/tree/main/).
 
 
 ## Bugs ##

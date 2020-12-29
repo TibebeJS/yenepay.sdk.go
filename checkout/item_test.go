@@ -3,7 +3,8 @@ package checkout
 import (
 	"testing"
 
-	"github.com/google/go-cmp/cmp"
+	"github.com/go-playground/validator"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -36,6 +37,21 @@ func TestItemToJSON(t *testing.T) {
 
 	require.JSONEq(t, expected, actual)
 
+	_, actualError := (&CheckoutItem{}).ToJSON()
+
+	if assert.Error(t, actualError) {
+		for _, err := range actualError.(validator.ValidationErrors) {
+			switch err.Field() {
+			case "ItemId":
+				assert.Exactly(t, "ItemId", err.Field())
+				assert.Exactly(t, "required", err.Tag())
+			case "ItemName":
+				assert.Exactly(t, "ItemName", err.Field())
+				assert.Exactly(t, "required", err.Tag())
+			}
+
+		}
+	}
 }
 
 func TestNewCheckoutItem(t *testing.T) {
@@ -63,7 +79,5 @@ func TestNewCheckoutItem(t *testing.T) {
 		0.0,
 	}
 
-	if !cmp.Equal(item, expected) {
-		t.Error("NewCheckoutItem Constructor is not working as expected")
-	}
+	assert.Exactly(t, expected, item)
 }
