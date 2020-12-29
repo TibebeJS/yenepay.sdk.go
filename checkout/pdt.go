@@ -6,7 +6,7 @@ type PdtRequestModel struct {
 	PdtToken      string
 	TransactionId string
 	MerchantId    string
-	UseSandbox    bool
+	UseSandbox    bool `json:"-"`
 	RequestType   string
 }
 
@@ -26,20 +26,11 @@ func NewPdtRequestModel(
 }
 
 func (self *PdtRequestModel) ToJSON() (string, error) {
-	data, err := json.Marshal(struct {
-		PdtToken      string
-		TransactionId string
-		MerchantId    string
-		RequestType   string
-	}{
-		self.PdtToken,
-		self.TransactionId,
-		self.MerchantId,
-		self.RequestType,
-	})
+	data, err := json.Marshal(self)
 
 	if err != nil {
 		return "", err
 	}
+
 	return string(data), nil
 }
