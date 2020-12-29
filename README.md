@@ -43,24 +43,6 @@ And simply import in your source code.
 
 Bugs or suggestions? Visit the [issue tracker](https://github.com/TibebeJS/yenepay.sdk.go/issues) 
 
-## Testing ##
-To run the tests, use the following command:
-```
-$ go test -v ./...
-```
-
-Alternatively, you may use [`goconvey`](https://github.com/smartystreets/goconvey) (Recommended)
-
-To install [`goconvey`](https://github.com/smartystreets/goconvey), run:
-```
-$ go get github.com/smartystreets/goconvey
-```
-
-After installation, use the following to execute the tests:
-```
-$ goconvey
-```
-
 ## Deployment ##
 
 > To Be Documented Soon
