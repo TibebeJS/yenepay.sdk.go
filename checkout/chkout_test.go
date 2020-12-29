@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestNewYenePayCheckOut(t *testing.T) {
@@ -21,4 +22,42 @@ func TestNewYenePayCheckOut(t *testing.T) {
 	if !cmp.Equal(checkout, expected) {
 		t.Error("NewYenePayCheckOut Constructor is not working as expected")
 	}
+}
+
+func TestGetCheckoutUrlForExpress(t *testing.T) {
+
+	actual := NewYenePayCheckOut().GetCheckoutUrlForExpress(
+		NewCheckoutOption(
+			true,
+			ExpressCheckout,
+			"222",
+			"sdfsd",
+			"sdfsd",
+			"sdfsd",
+			"sdfsd",
+			3,
+			"sdfsdsdfsd",
+			2.0,
+			3.0,
+			1.0,
+			5.0,
+			10.0,
+		),
+		NewCheckoutItem(
+			"544",
+			"PC",
+			30.0,
+			2,
+			0.2,
+			0.0,
+			0.0,
+			0.0,
+			0.0,
+		),
+	)
+
+	expected := "https://test.yenepay.com/Home/Process/?CancelUrl=sdfsd&ExpiresAfter=3&FailureUrl=sdfsd&IPNUrl=sdfsd&MerchantId=222&MerchantOrderId=sdfsdsdfsd&Process=Express&SuccessUrl=sdfsd&UseSandbox=true"
+
+	assert.Exactly(t, expected, actual)
+
 }
