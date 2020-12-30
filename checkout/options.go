@@ -1,6 +1,10 @@
 package checkout
 
-import "encoding/json"
+import (
+	"encoding/json"
+
+	"github.com/go-playground/validator"
+)
 
 type CheckoutOption struct {
 	UseSandbox            bool
@@ -53,12 +57,17 @@ func (self *CheckoutOption) ToJSON(forCart bool) (string, error) {
 		fields = self
 	}
 
-	data, err := json.Marshal(fields)
+	var validate *validator.Validate = validator.New()
+
+	err := validate.Struct(self)
 
 	if err != nil {
 		return "", err
+	} else {
+		data, _ := json.Marshal(fields)
+
+		return string(data), nil
 	}
-	return string(data), nil
 }
 
 func (self *CheckoutOption) SetOrderFees(totalItemsDeliveryFee float64, totalItemsDiscount float64, totalItemsHandlingFee float64, totalItemsTax1, totalItemsTax2 float64) {
