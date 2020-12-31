@@ -10,6 +10,9 @@ Models included in this package:
 package checkout
 
 import (
+	"fmt"
+	"reflect"
+
 	"github.com/google/go-querystring/query"
 )
 
@@ -39,12 +42,35 @@ func NewYenePayCheckOut() *YenePayCheckOut {
 // Generate Checkout URL for Express Checkout
 func (self *YenePayCheckOut) GetCheckoutUrlForExpress(checkoutOptions *CheckoutOption, checkoutItem *CheckoutItem) string {
 
-	v, _ := query.Values(checkoutOptions.GetCartFields())
+	v, _ := query.Values(checkoutOptions.GetExpressFields())
 
 	checkoutUrl := self.CheckoutBaseUrlProd + "?" + v.Encode()
 
 	if checkoutOptions.UseSandbox {
 		checkoutUrl = self.CheckoutBaseUrlSandbox + "?" + v.Encode()
+	}
+
+	return checkoutUrl
+}
+
+// Generate Checkout URL for Cart Checkout
+func (self *YenePayCheckOut) GetCheckoutUrlForCart(checkoutOptions *CheckoutOption, checkoutItems []CheckoutItem) string {
+
+	v, _ := query.Values(checkoutOptions)
+
+	checkoutUrl := self.CheckoutBaseUrlProd + "?" + v.Encode()
+
+	if checkoutOptions.UseSandbox {
+		checkoutUrl = self.CheckoutBaseUrlSandbox + "?" + v.Encode()
+	}
+
+	for i, item := range checkoutItems {
+		v := reflect.ValueOf(item.GetCartFields())
+		typeOfS := v.Type()
+
+		for j := 0; j < v.NumField(); j++ {
+			checkoutUrl += fmt.Sprintf("&Items[%d].%s=%v", i, typeOfS.Field(j).Name, v.Field(j).Interface())
+		}
 	}
 
 	return checkoutUrl

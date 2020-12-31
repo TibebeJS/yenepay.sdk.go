@@ -33,6 +33,22 @@ func (self *CheckoutItem) ToJSON() (string, error) {
 	}
 }
 
+// Return Only Required Fields for Cart Checkout
+// I.e. Exclude all Fields that are related with tax, etc..
+func (self *CheckoutItem) GetCartFields() interface{} {
+	return struct {
+		ItemId    string
+		ItemName  string
+		UnitPrice float64
+		Quantity  int
+	}{
+		self.ItemId,
+		self.ItemName,
+		self.UnitPrice,
+		self.Quantity,
+	}
+}
+
 // CheckoutItem Constructor
 func NewCheckoutItem(ItemId string, ItemName string, UnitPrice float64, Quantity int, Discount float64, HandlingFee float64, DeliveryFee float64, Tax1 float64, Tax2 float64) *CheckoutItem {
 	return &CheckoutItem{
