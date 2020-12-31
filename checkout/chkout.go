@@ -40,21 +40,23 @@ func NewYenePayCheckOut() *YenePayCheckOut {
 }
 
 // Generate Checkout URL for Express Checkout
-func (self *YenePayCheckOut) GetCheckoutUrlForExpress(checkoutOptions *CheckoutOption, checkoutItem *CheckoutItem) string {
+func (self *YenePayCheckOut) ExpressCheckoutUrl(checkoutOptions *CheckoutOption, checkoutItem *ExpressCheckoutItem) string {
 
-	v, _ := query.Values(checkoutOptions.GetExpressFields())
+	optsQs, _ := query.Values(checkoutOptions.GetExpressFields())
 
-	checkoutUrl := self.CheckoutBaseUrlProd + "?" + v.Encode()
+	itemQs, _ := query.Values(checkoutItem)
+
+	checkoutUrl := self.CheckoutBaseUrlProd + "?" + optsQs.Encode() + "&" + itemQs.Encode()
 
 	if checkoutOptions.UseSandbox {
-		checkoutUrl = self.CheckoutBaseUrlSandbox + "?" + v.Encode()
+		checkoutUrl = self.CheckoutBaseUrlSandbox + "?" + optsQs.Encode() + "&" + itemQs.Encode()
 	}
 
 	return checkoutUrl
 }
 
 // Generate Checkout URL for Cart Checkout
-func (self *YenePayCheckOut) GetCheckoutUrlForCart(checkoutOptions *CheckoutOption, checkoutItems []CheckoutItem) string {
+func (self *YenePayCheckOut) CartCheckoutUrl(checkoutOptions *CheckoutOption, cartItems []CartCheckoutItem) string {
 
 	v, _ := query.Values(checkoutOptions)
 
@@ -64,8 +66,8 @@ func (self *YenePayCheckOut) GetCheckoutUrlForCart(checkoutOptions *CheckoutOpti
 		checkoutUrl = self.CheckoutBaseUrlSandbox + "?" + v.Encode()
 	}
 
-	for i, item := range checkoutItems {
-		v := reflect.ValueOf(item.GetCartFields())
+	for i, item := range cartItems {
+		v := reflect.ValueOf(item)
 		typeOfS := v.Type()
 
 		for j := 0; j < v.NumField(); j++ {
