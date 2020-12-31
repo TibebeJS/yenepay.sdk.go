@@ -45,7 +45,7 @@ func TestNewCheckoutOption(t *testing.T) {
 	assert.Exactly(t, expected, actual)
 }
 
-func TestOptionsToJSONForCart(t *testing.T) {
+func TestOptionsToJSONForExpress(t *testing.T) {
 	actual, _ := NewCheckoutOption(
 		true,
 		ExpressCheckout,
@@ -61,7 +61,7 @@ func TestOptionsToJSONForCart(t *testing.T) {
 		0.0,
 		0.0,
 		0.0,
-	).ToJSON(true)
+	).ToJSON(false)
 
 	expected := `
 	{
@@ -80,7 +80,7 @@ func TestOptionsToJSONForCart(t *testing.T) {
 	require.JSONEq(t, expected, actual)
 
 }
-func TestOptionsToJSON(t *testing.T) {
+func TestOptionsToJSONForCart(t *testing.T) {
 	actual, _ := NewCheckoutOption(
 		true,
 		ExpressCheckout,
@@ -96,7 +96,7 @@ func TestOptionsToJSON(t *testing.T) {
 		0.0,
 		0.0,
 		0.0,
-	).ToJSON(false)
+	).ToJSON(true)
 
 	expected := `
 	{

@@ -23,9 +23,9 @@ type CheckoutOption struct {
 	TotalItemsHandlingFee float64
 }
 
-// Return Only Required Fields for Cart Checkout
+// Return Only Required Fields for Express Checkout
 // I.e. Exclude all Fields that start with 'Total'
-func (self *CheckoutOption) GetCartFields() interface{} {
+func (self *CheckoutOption) GetExpressFields() interface{} {
 	return struct {
 		UseSandbox      bool
 		Process         CheckoutType
@@ -54,8 +54,8 @@ func (self *CheckoutOption) ToJSON(forCart bool) (string, error) {
 
 	var fields interface{}
 
-	if forCart {
-		fields = self.GetCartFields()
+	if !forCart {
+		fields = self.GetExpressFields()
 	} else {
 		fields = self
 	}
