@@ -10,7 +10,11 @@ Models included in this package:
 package checkout
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"net/http"
 	"reflect"
 
 	"github.com/google/go-querystring/query"
@@ -76,4 +80,55 @@ func (self *YenePayCheckOut) CartCheckoutUrl(checkoutOptions *CheckoutOption, ca
 	}
 
 	return checkoutUrl
+}
+
+// WIP: check IPN authenticity
+func (self *YenePayCheckOut) IsIPNAuthentic(ipnModel interface{}, useSandbox bool) (bool, error) {
+	ipnUrl := self.IpnVerifyUrlProd
+
+	if useSandbox {
+		ipnUrl = self.IpnVerifyUrlSandbox
+	}
+
+	reqBody, _ := json.Marshal(ipnModel)
+	resp, err := http.Post(ipnUrl, "application/json", bytes.NewBuffer(reqBody))
+
+	if err != nil {
+
+	}
+
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+
+	if err != nil {
+
+	}
+
+	fmt.Println(body)
+
+	return true, nil
+}
+
+// WIP: Request PDT model
+func (self *YenePayCheckOut) RequestPDT(pdtReq PdtRequestModel) (interface{}, error) {
+	pdtUrl := self.PdtUrlProd
+
+	if pdtReq.UseSandbox {
+		pdtUrl = self.PdtUrlSandbox
+	}
+
+	reqBody, _ := json.Marshal(pdtReq)
+	resp, err := http.Post(pdtUrl, "application/json", bytes.NewBuffer(reqBody))
+
+	if err != nil {
+
+	}
+
+	defer resp.Body.Close()
+
+	var result map[string]interface{}
+	json.NewDecoder(resp.Body).Decode(&result)
+
+	return result, nil
 }
