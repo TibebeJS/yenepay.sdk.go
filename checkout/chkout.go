@@ -10,6 +10,9 @@ Models included in this package:
 package checkout
 
 import (
+	"fmt"
+	"reflect"
+
 	"github.com/google/go-querystring/query"
 )
 
@@ -51,17 +54,7 @@ func (self *YenePayCheckOut) GetCheckoutUrlForExpress(checkoutOptions *CheckoutO
 }
 
 // Generate Checkout URL for Cart Checkout
-func (self *YenePayCheckOut) GetCheckoutUrlForCart(checkoutOptions *CheckoutOption, checkoutItems []*CheckoutItem) string {
-
-	// https://test.yenepay.com/Home/Process/
-	// ?Process=Cart&
-	// MerchantId=YOUR_YENEPAY_SELLER_CODE&
-	// SuccessUrl=http://localhost:3000/Home/PaymentSuccessReturnUrl&CancelUrl=
-	// &IPNUrl=http://localhost:3000/Home/IPNDestination&FailureUrl=&
-	// ExpiresAfter=2880&MerchantOrderId=ab-cd
-	// &TotalItemsDeliveryFee=100&
-	// TotalItemsTax1=345&TotalItemsTax2=0&TotalItemsDiscount=50&TotalItemsHandlingFee=30&
-	// Items[0].ItemId=2&Items[0].ItemName=Watch&Items[0].UnitPrice=2000&Items[0].Quantity=1&Items[1].ItemId=1&Items[1].ItemName=Bag&Items[1].UnitPrice=300&Items[1].Quantity=1
+func (self *YenePayCheckOut) GetCheckoutUrlForCart(checkoutOptions *CheckoutOption, checkoutItems []CheckoutItem) string {
 
 	v, _ := query.Values(checkoutOptions)
 
@@ -69,6 +62,15 @@ func (self *YenePayCheckOut) GetCheckoutUrlForCart(checkoutOptions *CheckoutOpti
 
 	if checkoutOptions.UseSandbox {
 		checkoutUrl = self.CheckoutBaseUrlSandbox + "?" + v.Encode()
+	}
+
+	for i, item := range checkoutItems {
+		v := reflect.ValueOf(item.GetCartFields())
+		typeOfS := v.Type()
+
+		for j := 0; j < v.NumField(); j++ {
+			checkoutUrl += fmt.Sprintf("&Items[%d].%s=%v", i, typeOfS.Field(j).Name, v.Field(j).Interface())
+		}
 	}
 
 	return checkoutUrl

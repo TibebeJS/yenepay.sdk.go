@@ -81,3 +81,31 @@ func TestNewCheckoutItem(t *testing.T) {
 
 	assert.Exactly(t, expected, item)
 }
+
+func TestGetCartFields(t *testing.T) {
+	actual := NewCheckoutItem(
+		"2",
+		"item-name",
+		10.0,
+		2,
+		0.0,
+		0.0,
+		0.0,
+		0.0,
+		0.0,
+	).GetCartFields()
+
+	expected := struct {
+		ItemId    string
+		ItemName  string
+		UnitPrice float64
+		Quantity  int
+	}{
+		"2",
+		"item-name",
+		10.0,
+		2,
+	}
+
+	assert.Exactly(t, expected, actual)
+}
