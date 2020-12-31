@@ -9,7 +9,7 @@ import (
 )
 
 func TestItemToJSON(t *testing.T) {
-	actual, _ := NewCheckoutItem(
+	actual, _ := NewExpressCheckoutItem(
 		"2",
 		"item-name",
 		10.0,
@@ -37,7 +37,7 @@ func TestItemToJSON(t *testing.T) {
 
 	require.JSONEq(t, expected, actual)
 
-	_, actualError := (&CheckoutItem{}).ToJSON()
+	_, actualError := (&ExpressCheckoutItem{}).ToJSON()
 
 	if assert.Error(t, actualError) {
 		for _, err := range actualError.(validator.ValidationErrors) {
@@ -54,8 +54,8 @@ func TestItemToJSON(t *testing.T) {
 	}
 }
 
-func TestNewCheckoutItem(t *testing.T) {
-	item := NewCheckoutItem(
+func TestNewExpressCheckoutItem(t *testing.T) {
+	item := NewExpressCheckoutItem(
 		"2",
 		"item-name",
 		10.0,
@@ -67,7 +67,7 @@ func TestNewCheckoutItem(t *testing.T) {
 		0.0,
 	)
 
-	expected := &CheckoutItem{
+	expected := &ExpressCheckoutItem{
 		"2",
 		"item-name",
 		10.0,
@@ -81,31 +81,20 @@ func TestNewCheckoutItem(t *testing.T) {
 
 	assert.Exactly(t, expected, item)
 }
-
-func TestGetCartFields(t *testing.T) {
-	actual := NewCheckoutItem(
+func TestNewCartCheckoutItem(t *testing.T) {
+	item := NewCartCheckoutItem(
 		"2",
 		"item-name",
 		10.0,
 		2,
-		0.0,
-		0.0,
-		0.0,
-		0.0,
-		0.0,
-	).GetCartFields()
+	)
 
-	expected := struct {
-		ItemId    string
-		ItemName  string
-		UnitPrice float64
-		Quantity  int
-	}{
+	expected := &CartCheckoutItem{
 		"2",
 		"item-name",
 		10.0,
 		2,
 	}
 
-	assert.Exactly(t, expected, actual)
+	assert.Exactly(t, expected, item)
 }
