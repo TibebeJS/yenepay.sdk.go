@@ -9,7 +9,7 @@ import (
 type CheckoutOption struct {
 	UseSandbox            bool
 	Process               CheckoutType
-	MerchantId            string
+	MerchantId            string `validate:"required"`
 	SuccessUrl            string
 	CancelUrl             string
 	IPNUrl                string
@@ -23,6 +23,8 @@ type CheckoutOption struct {
 	TotalItemsHandlingFee float64
 }
 
+// Return Only Required Fields for Cart Checkout
+// I.e. Exclude all Fields that start with 'Total'
 func (self *CheckoutOption) GetCartFields() interface{} {
 	return struct {
 		UseSandbox      bool
@@ -47,6 +49,7 @@ func (self *CheckoutOption) GetCartFields() interface{} {
 	}
 }
 
+// Validate and Marshal CheckoutOption to JSON format
 func (self *CheckoutOption) ToJSON(forCart bool) (string, error) {
 
 	var fields interface{}
@@ -70,6 +73,8 @@ func (self *CheckoutOption) ToJSON(forCart bool) (string, error) {
 	}
 }
 
+// Set Order Total Fees
+// I.e. Set Fields that start with 'Total'
 func (self *CheckoutOption) SetOrderFees(totalItemsDeliveryFee float64, totalItemsDiscount float64, totalItemsHandlingFee float64, totalItemsTax1, totalItemsTax2 float64) {
 	self.TotalItemsDeliveryFee = totalItemsDeliveryFee
 	self.TotalItemsDiscount = totalItemsDiscount
@@ -78,6 +83,7 @@ func (self *CheckoutOption) SetOrderFees(totalItemsDeliveryFee float64, totalIte
 	self.TotalItemsTax2 = totalItemsTax2
 }
 
+// CheckoutOption Constructor
 func NewCheckoutOption(
 	UseSandbox bool,
 	Process CheckoutType,

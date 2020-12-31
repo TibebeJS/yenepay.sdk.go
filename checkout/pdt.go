@@ -14,6 +14,7 @@ type PdtRequestModel struct {
 	RequestType   string
 }
 
+// PDT Constructor
 func NewPdtRequestModel(
 	PdtToken string,
 	TransactionId string,
@@ -29,6 +30,7 @@ func NewPdtRequestModel(
 	}
 }
 
+// Validate and Marshal PDT to JSON format
 func (self *PdtRequestModel) ToJSON() (string, error) {
 	var validate *validator.Validate = validator.New()
 

@@ -1,3 +1,12 @@
+/*
+Package checkout implements all checkout related logic and includes all checkout related models.
+
+Models included in this package:
+
+    PDT: Payment Data Transfer
+    IPN: Instant Payment Notification
+    Checkout: YenePay's Payment Order
+*/
 package checkout
 
 import (
@@ -13,6 +22,7 @@ type YenePayCheckOut struct {
 	PdtUrlSandbox          string
 }
 
+// YenePayCheckOut Constructor
 func NewYenePayCheckOut() *YenePayCheckOut {
 	self := &YenePayCheckOut{}
 
@@ -26,6 +36,7 @@ func NewYenePayCheckOut() *YenePayCheckOut {
 	return self
 }
 
+// Generate Checkout URL for Express Checkout
 func (self *YenePayCheckOut) GetCheckoutUrlForExpress(checkoutOptions *CheckoutOption, checkoutItem *CheckoutItem) string {
 
 	v, _ := query.Values(checkoutOptions.GetCartFields())

@@ -18,6 +18,7 @@ type CheckoutItem struct {
 	Tax2        float64 `validate:"min=0.0"`
 }
 
+// Validate and Marshal CheckoutItem to JSON format
 func (self *CheckoutItem) ToJSON() (string, error) {
 	var validate *validator.Validate = validator.New()
 
@@ -32,6 +33,7 @@ func (self *CheckoutItem) ToJSON() (string, error) {
 	}
 }
 
+// CheckoutItem Constructor
 func NewCheckoutItem(ItemId string, ItemName string, UnitPrice float64, Quantity int, Discount float64, HandlingFee float64, DeliveryFee float64, Tax1 float64, Tax2 float64) *CheckoutItem {
 	return &CheckoutItem{
 		ItemId,
