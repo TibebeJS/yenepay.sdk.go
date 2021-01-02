@@ -12,20 +12,17 @@ func main() {
 
 	fmt.Println("***************[ Express Checkout ]***************")
 	fmt.Println(yenepay.ExpressCheckoutUrl(checkout.NewCheckoutOption(
-		true,
-		checkout.ExpressCheckout,
-		"0694",
-		"http://localhost:3000/Home/PaymentSuccessReturnUrl",
-		"http://localhost:3000/Home/CancelReturnUrl",
-		"http://localhost:3000/Home/IPNUrl",
-		"http://localhost:3000/Home/FailureUrl",
-		2880,
-		"ab-cd",
-		2.0,
-		3.0,
-		0.0,
-		5.0,
-		10.0,
+		checkout.OptionsParams{
+			UseSandbox:      true,
+			Process:         checkout.ExpressCheckout,
+			MerchantId:      "0694",
+			SuccessUrl:      "http://localhost:3000/Home/PaymentSuccessReturnUrl",
+			CancelUrl:       "http://localhost:3000/Home/CancelReturnUrl",
+			IPNUrl:          "http://localhost:3000/Home/IPNUrl",
+			FailureUrl:      "http://localhost:3000/Home/FailureUrl",
+			ExpiresAfter:    2880,
+			MerchantOrderId: "ab-cd",
+		},
 	), checkout.NewExpressCheckoutItem(
 		checkout.ExpressParams{ItemId: "544", ItemName: "PC", UnitPrice: 30.0, Quantity: 2},
 	)))
@@ -33,20 +30,17 @@ func main() {
 	fmt.Println("***************[ Cart Checkout ]***************")
 
 	fmt.Println(yenepay.CartCheckoutUrl(checkout.NewCheckoutOption(
-		true,
-		checkout.CartCheckout,
-		"0694",
-		"http://localhost:3000/Home/PaymentSuccessReturnUrl",
-		"http://localhost:3000/Home/CancelReturnUrl",
-		"http://localhost:3000/Home/IPNUrl",
-		"http://localhost:3000/Home/FailureUrl",
-		2880,
-		"ab-cd",
-		2.0,
-		3.0,
-		0.0,
-		5.0,
-		10.0,
+		checkout.OptionsParams{
+			UseSandbox:      true,
+			Process:         checkout.ExpressCheckout,
+			MerchantId:      "0694",
+			SuccessUrl:      "http://localhost:3000/Home/PaymentSuccessReturnUrl",
+			CancelUrl:       "http://localhost:3000/Home/CancelReturnUrl",
+			IPNUrl:          "http://localhost:3000/Home/IPNUrl",
+			FailureUrl:      "http://localhost:3000/Home/FailureUrl",
+			ExpiresAfter:    2880,
+			MerchantOrderId: "ab-cd",
+		},
 	), []checkout.CartCheckoutItem{
 		{
 			ItemId:    "544",

@@ -14,18 +14,17 @@ type PdtRequestModel struct {
 	RequestType   string
 }
 
+type PdtParams PdtRequestModel
+
 // PDT Constructor
 func NewPdtRequestModel(
-	PdtToken string,
-	TransactionId string,
-	MerchantId string,
-	UseSandbox bool,
+	params PdtParams,
 ) *PdtRequestModel {
 	return &PdtRequestModel{
-		PdtToken,
-		TransactionId,
-		MerchantId,
-		UseSandbox,
+		params.PdtToken,
+		params.TransactionId,
+		params.MerchantId,
+		params.UseSandbox,
 		"PDT",
 	}
 }

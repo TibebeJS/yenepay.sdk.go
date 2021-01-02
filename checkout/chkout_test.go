@@ -18,20 +18,22 @@ func TestGetCheckoutUrlForExpress(t *testing.T) {
 
 	actual := NewYenePayCheckOut().ExpressCheckoutUrl(
 		NewCheckoutOption(
-			true,
-			ExpressCheckout,
-			"222",
-			"sdfsd",
-			"sdfsd",
-			"sdfsd",
-			"sdfsd",
-			3,
-			"sdfsdsdfsd",
-			2.0,
-			3.0,
-			1.0,
-			5.0,
-			10.0,
+			OptionsParams{
+				true,
+				ExpressCheckout,
+				"222",
+				"sdfsd",
+				"sdfsd",
+				"sdfsd",
+				"sdfsd",
+				3,
+				"sdfsdsdfsd",
+				2.0,
+				3.0,
+				1.0,
+				5.0,
+				10.0,
+			},
 		),
 		NewExpressCheckoutItem(
 			ExpressParams{
@@ -39,6 +41,7 @@ func TestGetCheckoutUrlForExpress(t *testing.T) {
 				ItemName:  "PC",
 				UnitPrice: 30.0,
 				Quantity:  2,
+				Discount:  0.2,
 			},
 		),
 	)

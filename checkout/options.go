@@ -23,6 +23,8 @@ type CheckoutOption struct {
 	TotalItemsHandlingFee float64
 }
 
+type OptionsParams CheckoutOption
+
 // Return Only Required Fields for Express Checkout
 // I.e. Exclude all Fields that start with 'Total'
 func (self *CheckoutOption) GetExpressFields() interface{} {
@@ -85,35 +87,22 @@ func (self *CheckoutOption) SetOrderFees(totalItemsDeliveryFee float64, totalIte
 
 // CheckoutOption Constructor
 func NewCheckoutOption(
-	UseSandbox bool,
-	Process CheckoutType,
-	MerchantId string,
-	SuccessUrl string,
-	CancelUrl string,
-	IPNUrl string,
-	FailureUrl string,
-	ExpiresAfter int,
-	MerchantOrderId string,
-	TotalItemsDeliveryFee float64,
-	TotalItemsTax1 float64,
-	TotalItemsTax2 float64,
-	TotalItemsDiscount float64,
-	TotalItemsHandlingFee float64,
+	params OptionsParams,
 ) *CheckoutOption {
 	return &CheckoutOption{
-		UseSandbox,
-		Process,
-		MerchantId,
-		SuccessUrl,
-		CancelUrl,
-		IPNUrl,
-		FailureUrl,
-		ExpiresAfter,
-		MerchantOrderId,
-		TotalItemsDeliveryFee,
-		TotalItemsTax1,
-		TotalItemsTax2,
-		TotalItemsDiscount,
-		TotalItemsHandlingFee,
+		params.UseSandbox,
+		params.Process,
+		params.MerchantId,
+		params.SuccessUrl,
+		params.CancelUrl,
+		params.IPNUrl,
+		params.FailureUrl,
+		params.ExpiresAfter,
+		params.MerchantOrderId,
+		params.TotalItemsDeliveryFee,
+		params.TotalItemsTax1,
+		params.TotalItemsTax2,
+		params.TotalItemsDiscount,
+		params.TotalItemsHandlingFee,
 	}
 }
