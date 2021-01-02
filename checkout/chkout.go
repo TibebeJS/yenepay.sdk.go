@@ -20,27 +20,22 @@ import (
 	"github.com/google/go-querystring/query"
 )
 
+const (
+	CHECKOUT_BASE_URL_PROD = "https://www.yenepay.com/checkout/Home/Process/"
+	IPN_VERIFY_URL_PROD    = "https://endpoints.yenepay.com/api/verify/ipn/"
+	PDT_URL_PROD           = "https://endpoints.yenepay.com/api/verify/pdt/"
+
+	CHECKOUT_BASE_URL_SANDBOX = "https://test.yenepay.com/Home/Process/"
+	IPN_VERIFY_URL_SANDBOX    = "https://testapi.yenepay.com/api/verify/ipn/"
+	PDT_URL_SANDBOX           = "https://testapi.yenepay.com/api/verify/pdt/"
+)
+
 type YenePayCheckOut struct {
-	CheckoutBaseUrlProd    string
-	CheckoutBaseUrlSandbox string
-	IpnVerifyUrlProd       string
-	IpnVerifyUrlSandbox    string
-	PdtUrlProd             string
-	PdtUrlSandbox          string
 }
 
 // YenePayCheckOut Constructor
 func NewYenePayCheckOut() *YenePayCheckOut {
-	self := &YenePayCheckOut{}
-
-	self.CheckoutBaseUrlProd = "https://www.yenepay.com/checkout/Home/Process/"
-	self.CheckoutBaseUrlSandbox = "https://test.yenepay.com/Home/Process/"
-	self.IpnVerifyUrlProd = "https://endpoints.yenepay.com/api/verify/ipn/"
-	self.IpnVerifyUrlSandbox = "https://testapi.yenepay.com/api/verify/ipn/"
-	self.PdtUrlProd = "https://endpoints.yenepay.com/api/verify/pdt/"
-	self.PdtUrlSandbox = "https://testapi.yenepay.com/api/verify/pdt/"
-
-	return self
+	return &YenePayCheckOut{}
 }
 
 // Generate Checkout URL for Express Checkout
@@ -50,10 +45,10 @@ func (self *YenePayCheckOut) ExpressCheckoutUrl(checkoutOptions *CheckoutOption,
 
 	itemQs, _ := query.Values(checkoutItem)
 
-	checkoutUrl := self.CheckoutBaseUrlProd + "?" + optsQs.Encode() + "&" + itemQs.Encode()
+	checkoutUrl := CHECKOUT_BASE_URL_PROD + "?" + optsQs.Encode() + "&" + itemQs.Encode()
 
 	if checkoutOptions.UseSandbox {
-		checkoutUrl = self.CheckoutBaseUrlSandbox + "?" + optsQs.Encode() + "&" + itemQs.Encode()
+		checkoutUrl = CHECKOUT_BASE_URL_SANDBOX + "?" + optsQs.Encode() + "&" + itemQs.Encode()
 	}
 
 	return checkoutUrl
@@ -64,10 +59,10 @@ func (self *YenePayCheckOut) CartCheckoutUrl(checkoutOptions *CheckoutOption, ca
 
 	v, _ := query.Values(checkoutOptions)
 
-	checkoutUrl := self.CheckoutBaseUrlProd + "?" + v.Encode()
+	checkoutUrl := CHECKOUT_BASE_URL_PROD + "?" + v.Encode()
 
 	if checkoutOptions.UseSandbox {
-		checkoutUrl = self.CheckoutBaseUrlSandbox + "?" + v.Encode()
+		checkoutUrl = CHECKOUT_BASE_URL_SANDBOX + "?" + v.Encode()
 	}
 
 	for i, item := range cartItems {
@@ -84,10 +79,10 @@ func (self *YenePayCheckOut) CartCheckoutUrl(checkoutOptions *CheckoutOption, ca
 
 // WIP: check IPN authenticity
 func (self *YenePayCheckOut) IsIPNAuthentic(ipnModel interface{}, useSandbox bool) (bool, error) {
-	ipnUrl := self.IpnVerifyUrlProd
+	ipnUrl := IPN_VERIFY_URL_PROD
 
 	if useSandbox {
-		ipnUrl = self.IpnVerifyUrlSandbox
+		ipnUrl = IPN_VERIFY_URL_SANDBOX
 	}
 
 	reqBody, _ := json.Marshal(ipnModel)
@@ -112,10 +107,10 @@ func (self *YenePayCheckOut) IsIPNAuthentic(ipnModel interface{}, useSandbox boo
 
 // WIP: Request PDT model
 func (self *YenePayCheckOut) RequestPDT(pdtReq PdtRequestModel) (interface{}, error) {
-	pdtUrl := self.PdtUrlProd
+	pdtUrl := PDT_URL_PROD
 
 	if pdtReq.UseSandbox {
-		pdtUrl = self.PdtUrlSandbox
+		pdtUrl = PDT_URL_SANDBOX
 	}
 
 	reqBody, _ := json.Marshal(pdtReq)
