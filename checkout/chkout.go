@@ -123,7 +123,6 @@ func (self *YenePayCheckOut) RequestPDT(pdtReq PdtRequestModel) (interface{}, er
 	defer resp.Body.Close()
 
 	var result map[string]interface{}
-	json.NewDecoder(resp.Body).Decode(&result)
 
 	err = json.NewDecoder(resp.Body).Decode(&result)
 
