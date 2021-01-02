@@ -9,20 +9,22 @@ import (
 
 func TestNewCheckoutOption(t *testing.T) {
 	actual := NewCheckoutOption(
-		true,
-		ExpressCheckout,
-		"2",
-		"localhost:8000/success",
-		"localhost:8000/cancel",
-		"localhost:8000/ipn",
-		"localhost:8000/failure",
-		2,
-		"2",
-		10.0,
-		2.0,
-		0.0,
-		0.0,
-		0.0,
+		OptionsParams{
+			true,
+			ExpressCheckout,
+			"2",
+			"localhost:8000/success",
+			"localhost:8000/cancel",
+			"localhost:8000/ipn",
+			"localhost:8000/failure",
+			2,
+			"2",
+			10.0,
+			2.0,
+			0.0,
+			0.0,
+			0.0,
+		},
 	)
 
 	expected := &CheckoutOption{
@@ -47,20 +49,22 @@ func TestNewCheckoutOption(t *testing.T) {
 
 func TestOptionsToJSONForExpress(t *testing.T) {
 	actual, _ := NewCheckoutOption(
-		true,
-		ExpressCheckout,
-		"2",
-		"localhost:8000/success",
-		"localhost:8000/cancel",
-		"localhost:8000/ipn",
-		"localhost:8000/failure",
-		2,
-		"2",
-		10.0,
-		2.0,
-		0.0,
-		0.0,
-		0.0,
+		OptionsParams{
+			true,
+			ExpressCheckout,
+			"2",
+			"localhost:8000/success",
+			"localhost:8000/cancel",
+			"localhost:8000/ipn",
+			"localhost:8000/failure",
+			2,
+			"2",
+			10.0,
+			2.0,
+			0.0,
+			0.0,
+			0.0,
+		},
 	).ToJSON(false)
 
 	expected := `
@@ -82,20 +86,22 @@ func TestOptionsToJSONForExpress(t *testing.T) {
 }
 func TestOptionsToJSONForCart(t *testing.T) {
 	actual, _ := NewCheckoutOption(
-		true,
-		ExpressCheckout,
-		"2",
-		"localhost:8000/success",
-		"localhost:8000/cancel",
-		"localhost:8000/ipn",
-		"localhost:8000/failure",
-		2,
-		"2",
-		10.0,
-		2.0,
-		0.0,
-		0.0,
-		0.0,
+		OptionsParams{
+			true,
+			ExpressCheckout,
+			"2",
+			"localhost:8000/success",
+			"localhost:8000/cancel",
+			"localhost:8000/ipn",
+			"localhost:8000/failure",
+			2,
+			"2",
+			10.0,
+			2.0,
+			0.0,
+			0.0,
+			0.0,
+		},
 	).ToJSON(true)
 
 	expected := `

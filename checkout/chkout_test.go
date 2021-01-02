@@ -9,14 +9,7 @@ import (
 func TestNewYenePayCheckOut(t *testing.T) {
 	actual := NewYenePayCheckOut()
 
-	expected := &YenePayCheckOut{
-		"https://www.yenepay.com/checkout/Home/Process/",
-		"https://test.yenepay.com/Home/Process/",
-		"https://endpoints.yenepay.com/api/verify/ipn/",
-		"https://testapi.yenepay.com/api/verify/ipn/",
-		"https://endpoints.yenepay.com/api/verify/pdt/",
-		"https://testapi.yenepay.com/api/verify/pdt/",
-	}
+	expected := &YenePayCheckOut{}
 
 	assert.Exactly(t, expected, actual)
 }
@@ -25,31 +18,31 @@ func TestGetCheckoutUrlForExpress(t *testing.T) {
 
 	actual := NewYenePayCheckOut().ExpressCheckoutUrl(
 		NewCheckoutOption(
-			true,
-			ExpressCheckout,
-			"222",
-			"sdfsd",
-			"sdfsd",
-			"sdfsd",
-			"sdfsd",
-			3,
-			"sdfsdsdfsd",
-			2.0,
-			3.0,
-			1.0,
-			5.0,
-			10.0,
+			OptionsParams{
+				true,
+				ExpressCheckout,
+				"222",
+				"sdfsd",
+				"sdfsd",
+				"sdfsd",
+				"sdfsd",
+				3,
+				"sdfsdsdfsd",
+				2.0,
+				3.0,
+				1.0,
+				5.0,
+				10.0,
+			},
 		),
 		NewExpressCheckoutItem(
-			"544",
-			"PC",
-			30.0,
-			2,
-			0.2,
-			0.0,
-			0.0,
-			0.0,
-			0.0,
+			ExpressParams{
+				ItemId:    "544",
+				ItemName:  "PC",
+				UnitPrice: 30.0,
+				Quantity:  2,
+				Discount:  0.2,
+			},
 		),
 	)
 

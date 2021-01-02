@@ -18,13 +18,6 @@ type ExpressCheckoutItem struct {
 	Tax2        float64 `validate:"min=0.0"`
 }
 
-type CartCheckoutItem struct {
-	ItemId    string
-	ItemName  string
-	UnitPrice float64
-	Quantity  int
-}
-
 // Validate and Marshal CheckoutItem to JSON format
 func (self *ExpressCheckoutItem) ToJSON() (string, error) {
 	var validate *validator.Validate = validator.New()
@@ -40,27 +33,40 @@ func (self *ExpressCheckoutItem) ToJSON() (string, error) {
 	}
 }
 
+type ExpressParams ExpressCheckoutItem
+
 // ExpressCheckoutItem Constructor
-func NewExpressCheckoutItem(ItemId string, ItemName string, UnitPrice float64, Quantity int, Discount float64, HandlingFee float64, DeliveryFee float64, Tax1 float64, Tax2 float64) *ExpressCheckoutItem {
+func NewExpressCheckoutItem(
+	params ExpressParams,
+) *ExpressCheckoutItem {
 	return &ExpressCheckoutItem{
-		ItemId,
-		ItemName,
-		UnitPrice,
-		Quantity,
-		Discount,
-		HandlingFee,
-		DeliveryFee,
-		Tax1,
-		Tax2,
+		params.ItemId,
+		params.ItemName,
+		params.UnitPrice,
+		params.Quantity,
+		params.Discount,
+		params.HandlingFee,
+		params.DeliveryFee,
+		params.Tax1,
+		params.Tax2,
 	}
 }
 
+type CartCheckoutItem struct {
+	ItemId    string
+	ItemName  string
+	UnitPrice float64
+	Quantity  int
+}
+
+type CartParams CartCheckoutItem
+
 // CartCheckoutItem Constructor
-func NewCartCheckoutItem(ItemId string, ItemName string, UnitPrice float64, Quantity int) *CartCheckoutItem {
+func NewCartCheckoutItem(params CartParams) *CartCheckoutItem {
 	return &CartCheckoutItem{
-		ItemId,
-		ItemName,
-		UnitPrice,
-		Quantity,
+		params.ItemId,
+		params.ItemName,
+		params.UnitPrice,
+		params.Quantity,
 	}
 }

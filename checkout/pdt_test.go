@@ -10,10 +10,12 @@ import (
 
 func TestNewPdtRequestModel(t *testing.T) {
 	pdt := NewPdtRequestModel(
-		"test",
-		"1234",
-		"2345",
-		true,
+		PdtParams{
+			PdtToken:      "test",
+			TransactionId: "1234",
+			MerchantId:    "2345",
+			UseSandbox:    true,
+		},
 	)
 
 	expected := &PdtRequestModel{
@@ -29,10 +31,12 @@ func TestNewPdtRequestModel(t *testing.T) {
 
 func TestPDTToJSON(t *testing.T) {
 	actual, _ := NewPdtRequestModel(
-		"test",
-		"1234",
-		"2345",
-		true,
+		PdtParams{
+			PdtToken:      "test",
+			TransactionId: "1234",
+			MerchantId:    "2345",
+			UseSandbox:    true,
+		},
 	).ToJSON()
 
 	expected := `
