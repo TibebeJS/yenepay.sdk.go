@@ -89,7 +89,7 @@ func (self *YenePayCheckOut) IsIPNAuthentic(ipnModel interface{}, useSandbox boo
 	resp, err := http.Post(ipnUrl, "application/json", bytes.NewBuffer(reqBody))
 
 	if err != nil {
-
+		fmt.Print(err)
 	}
 
 	defer resp.Body.Close()
@@ -97,7 +97,7 @@ func (self *YenePayCheckOut) IsIPNAuthentic(ipnModel interface{}, useSandbox boo
 	body, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
-
+		fmt.Print(err)
 	}
 
 	fmt.Println(body)
@@ -117,7 +117,7 @@ func (self *YenePayCheckOut) RequestPDT(pdtReq PdtRequestModel) (interface{}, er
 	resp, err := http.Post(pdtUrl, "application/json", bytes.NewBuffer(reqBody))
 
 	if err != nil {
-
+		fmt.Print(err)
 	}
 
 	defer resp.Body.Close()
@@ -125,5 +125,11 @@ func (self *YenePayCheckOut) RequestPDT(pdtReq PdtRequestModel) (interface{}, er
 	var result map[string]interface{}
 	json.NewDecoder(resp.Body).Decode(&result)
 
-	return result, nil
+	err = json.NewDecoder(resp.Body).Decode(&result)
+
+	if err != nil {
+		return nil, err
+	} else {
+		return result, nil
+	}
 }
