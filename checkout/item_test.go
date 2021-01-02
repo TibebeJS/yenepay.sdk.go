@@ -10,15 +10,17 @@ import (
 
 func TestItemToJSON(t *testing.T) {
 	actual, _ := NewExpressCheckoutItem(
-		"2",
-		"item-name",
-		10.0,
-		2,
-		0.0,
-		0.0,
-		0.0,
-		0.0,
-		0.0,
+		ExpressParams{
+			"2",
+			"item-name",
+			10.0,
+			2,
+			0.0,
+			0.0,
+			0.0,
+			0.0,
+			0.0,
+		},
 	).ToJSON()
 
 	expected := `
@@ -56,15 +58,12 @@ func TestItemToJSON(t *testing.T) {
 
 func TestNewExpressCheckoutItem(t *testing.T) {
 	item := NewExpressCheckoutItem(
-		"2",
-		"item-name",
-		10.0,
-		2,
-		0.0,
-		0.0,
-		0.0,
-		0.0,
-		0.0,
+		ExpressParams{
+			ItemId:    "2",
+			ItemName:  "item-name",
+			UnitPrice: 10.0,
+			Quantity:  2,
+		},
 	)
 
 	expected := &ExpressCheckoutItem{
@@ -83,10 +82,12 @@ func TestNewExpressCheckoutItem(t *testing.T) {
 }
 func TestNewCartCheckoutItem(t *testing.T) {
 	item := NewCartCheckoutItem(
-		"2",
-		"item-name",
-		10.0,
-		2,
+		CartParams{
+			"2",
+			"item-name",
+			10.0,
+			2,
+		},
 	)
 
 	expected := &CartCheckoutItem{

@@ -27,15 +27,7 @@ func main() {
 		5.0,
 		10.0,
 	), checkout.NewExpressCheckoutItem(
-		"544",
-		"PC",
-		30.0,
-		2,
-		0.0,
-		0.0,
-		0.0,
-		0.0,
-		0.0,
+		checkout.ExpressParams{ItemId: "544", ItemName: "PC", UnitPrice: 30.0, Quantity: 2},
 	)))
 
 	fmt.Println("***************[ Cart Checkout ]***************")

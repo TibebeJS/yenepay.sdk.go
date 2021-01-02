@@ -34,15 +34,12 @@ func TestGetCheckoutUrlForExpress(t *testing.T) {
 			10.0,
 		),
 		NewExpressCheckoutItem(
-			"544",
-			"PC",
-			30.0,
-			2,
-			0.2,
-			0.0,
-			0.0,
-			0.0,
-			0.0,
+			ExpressParams{
+				ItemId:    "544",
+				ItemName:  "PC",
+				UnitPrice: 30.0,
+				Quantity:  2,
+			},
 		),
 	)
 
