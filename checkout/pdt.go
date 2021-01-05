@@ -7,11 +7,11 @@ import (
 )
 
 type PdtRequestModel struct {
-	PdtToken      string `validate:"required,min=1"`
-	TransactionId string
-	MerchantId    string
-	UseSandbox    bool `json:"-"`
-	RequestType   string
+	PdtToken        string `validate:"required,min=1"`
+	TransactionId   string
+	MerchantOrderId string
+	UseSandbox      bool `json:"-"`
+	RequestType     string
 }
 
 type PdtParams PdtRequestModel
@@ -23,7 +23,7 @@ func NewPdtRequestModel(
 	return &PdtRequestModel{
 		params.PdtToken,
 		params.TransactionId,
-		params.MerchantId,
+		params.MerchantOrderId,
 		params.UseSandbox,
 		"PDT",
 	}

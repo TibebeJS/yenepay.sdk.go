@@ -11,10 +11,10 @@ import (
 func TestNewPdtRequestModel(t *testing.T) {
 	pdt := NewPdtRequestModel(
 		PdtParams{
-			PdtToken:      "test",
-			TransactionId: "1234",
-			MerchantId:    "2345",
-			UseSandbox:    true,
+			PdtToken:        "test",
+			TransactionId:   "1234",
+			MerchantOrderId: "2345",
+			UseSandbox:      true,
 		},
 	)
 
@@ -32,10 +32,10 @@ func TestNewPdtRequestModel(t *testing.T) {
 func TestPDTToJSON(t *testing.T) {
 	actual, _ := NewPdtRequestModel(
 		PdtParams{
-			PdtToken:      "test",
-			TransactionId: "1234",
-			MerchantId:    "2345",
-			UseSandbox:    true,
+			PdtToken:        "test",
+			TransactionId:   "1234",
+			MerchantOrderId: "2345",
+			UseSandbox:      true,
 		},
 	).ToJSON()
 
@@ -43,7 +43,7 @@ func TestPDTToJSON(t *testing.T) {
 	{
 		"PdtToken": "test",
 		"TransactionId": "1234",
-		"MerchantId": "2345",
+		"MerchantOrderId": "2345",
 		"RequestType": "PDT"
 	}
 	`
