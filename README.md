@@ -27,7 +27,7 @@ module github.com/x/y
 go 1.15
 
 require (
-    github.com/TibebeJs/yenepay.sdk.go
+    "github.com/TibebeJs/yenepay.sdk.go/checkout"
 )
 ```
 
