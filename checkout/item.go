@@ -1,13 +1,8 @@
 package checkout
 
-import (
-	"encoding/json"
-
-	"github.com/go-playground/validator"
-)
-
+// ExpressCheckoutItem - model
 type ExpressCheckoutItem struct {
-	ItemId      string  `validate:"required,min=1"`
+	ItemID      string  `validate:"required,min=1"`
 	ItemName    string  `validate:"required,min=1"`
 	UnitPrice   float64 `validate:"min=0.1"`
 	Quantity    int     `validate:"min=1"`
@@ -18,29 +13,30 @@ type ExpressCheckoutItem struct {
 	Tax2        float64 `validate:"min=0.0"`
 }
 
-// Validate and Marshal CheckoutItem to JSON format
-func (self *ExpressCheckoutItem) ToJSON() (string, error) {
-	var validate *validator.Validate = validator.New()
+// // Validate and Marshal CheckoutItem to JSON format
+// func (self *ExpressCheckoutItem) ToJSON() (string, error) {
+// 	var validate *validator.Validate = validator.New()
 
-	err := validate.Struct(self)
+// 	err := validate.Struct(self)
 
-	if err != nil {
-		return "", err
-	} else {
-		data, _ := json.Marshal(self)
+// 	if err != nil {
+// 		return "", err
+// 	} else {
+// 		data, _ := json.Marshal(self)
 
-		return string(data), nil
-	}
-}
+// 		return string(data), nil
+// 	}
+// }
 
+// ExpressParams - argument type for constructor
 type ExpressParams ExpressCheckoutItem
 
-// ExpressCheckoutItem Constructor
+// NewExpressCheckoutItem - ExpressCheckoutItem Constructor
 func NewExpressCheckoutItem(
 	params ExpressParams,
 ) *ExpressCheckoutItem {
 	return &ExpressCheckoutItem{
-		params.ItemId,
+		params.ItemID,
 		params.ItemName,
 		params.UnitPrice,
 		params.Quantity,
@@ -52,19 +48,21 @@ func NewExpressCheckoutItem(
 	}
 }
 
+// CartCheckoutItem - model
 type CartCheckoutItem struct {
-	ItemId    string
+	ItemID    string
 	ItemName  string
 	UnitPrice float64
 	Quantity  int
 }
 
+// CartParams - argument for constructor
 type CartParams CartCheckoutItem
 
-// CartCheckoutItem Constructor
+// NewCartCheckoutItem - CartCheckoutItem Constructor
 func NewCartCheckoutItem(params CartParams) *CartCheckoutItem {
 	return &CartCheckoutItem{
-		params.ItemId,
+		params.ItemID,
 		params.ItemName,
 		params.UnitPrice,
 		params.Quantity,

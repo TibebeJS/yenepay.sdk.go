@@ -11,45 +11,45 @@ func main() {
 	yenepay := checkout.NewYenePayCheckOut()
 
 	fmt.Println("***************[ Express Checkout ]***************")
-	fmt.Println(yenepay.ExpressCheckoutUrl(checkout.NewCheckoutOption(
+	fmt.Println(yenepay.ExpressCheckoutURL(checkout.NewOption(
 		checkout.OptionsParams{
 			UseSandbox:      true,
 			Process:         checkout.ExpressCheckout,
-			MerchantId:      "0694",
-			SuccessUrl:      "http://localhost:3000/Home/PaymentSuccessReturnUrl",
-			CancelUrl:       "http://localhost:3000/Home/CancelReturnUrl",
-			IPNUrl:          "http://localhost:3000/Home/IPNUrl",
-			FailureUrl:      "http://localhost:3000/Home/FailureUrl",
+			MerchantID:      "0694",
+			SuccessURL:      "http://localhost:3000/Home/PaymentSuccessReturnURL",
+			CancelURL:       "http://localhost:3000/Home/CancelReturnURL",
+			IPNURL:          "http://localhost:3000/Home/IPNURL",
+			FailureURL:      "http://localhost:3000/Home/FailureURL",
 			ExpiresAfter:    2880,
-			MerchantOrderId: "ab-cd",
+			MerchantOrderID: "ab-cd",
 		},
 	), checkout.NewExpressCheckoutItem(
-		checkout.ExpressParams{ItemId: "544", ItemName: "PC", UnitPrice: 30.0, Quantity: 2},
+		checkout.ExpressParams{ItemID: "544", ItemName: "PC", UnitPrice: 30.0, Quantity: 2},
 	)))
 
 	fmt.Println("***************[ Cart Checkout ]***************")
 
-	fmt.Println(yenepay.CartCheckoutUrl(checkout.NewCheckoutOption(
+	fmt.Println(yenepay.CartCheckoutURL(checkout.NewOption(
 		checkout.OptionsParams{
 			UseSandbox:      true,
 			Process:         checkout.ExpressCheckout,
-			MerchantId:      "0694",
-			SuccessUrl:      "http://localhost:3000/Home/PaymentSuccessReturnUrl",
-			CancelUrl:       "http://localhost:3000/Home/CancelReturnUrl",
-			IPNUrl:          "http://localhost:3000/Home/IPNUrl",
-			FailureUrl:      "http://localhost:3000/Home/FailureUrl",
+			MerchantID:      "0694",
+			SuccessURL:      "http://localhost:3000/Home/PaymentSuccessReturnURL",
+			CancelURL:       "http://localhost:3000/Home/CancelReturnURL",
+			IPNURL:          "http://localhost:3000/Home/IPNURL",
+			FailureURL:      "http://localhost:3000/Home/FailureURL",
 			ExpiresAfter:    2880,
-			MerchantOrderId: "ab-cd",
+			MerchantOrderID: "ab-cd",
 		},
 	), []checkout.CartCheckoutItem{
 		{
-			ItemId:    "544",
+			ItemID:    "544",
 			ItemName:  "PC",
 			UnitPrice: 30.0,
 			Quantity:  2,
 		},
 		{
-			ItemId:    "541",
+			ItemID:    "541",
 			ItemName:  "PC2",
 			UnitPrice: 30.0,
 			Quantity:  2,
