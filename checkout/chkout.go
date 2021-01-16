@@ -21,48 +21,49 @@ import (
 )
 
 const (
-	CHECKOUT_BASE_URL_PROD = "https://www.yenepay.com/checkout/Home/Process/"
-	IPN_VERIFY_URL_PROD    = "https://endpoints.yenepay.com/api/verify/ipn/"
-	PDT_URL_PROD           = "https://endpoints.yenepay.com/api/verify/pdt/"
+	checkoutBaseURLProd string = "https://www.yenepay.com/checkout/Home/Process/"
+	ipnVerifyURLProd    string = "https://endpoints.yenepay.com/api/verify/ipn/"
+	pdtURLProd          string = "https://endpoints.yenepay.com/api/verify/pdt/"
 
-	CHECKOUT_BASE_URL_SANDBOX = "https://test.yenepay.com/Home/Process/"
-	IPN_VERIFY_URL_SANDBOX    = "https://testapi.yenepay.com/api/verify/ipn/"
-	PDT_URL_SANDBOX           = "https://testapi.yenepay.com/api/verify/pdt/"
+	checkoutBaseURLSandbox string = "https://test.yenepay.com/Home/Process/"
+	ipnVerifyURLSandbox    string = "https://testapi.yenepay.com/api/verify/ipn/"
+	pdtURLSandbox          string = "https://testapi.yenepay.com/api/verify/pdt/"
 )
 
+// YenePayCheckOut - main checkout model
 type YenePayCheckOut struct {
 }
 
-// YenePayCheckOut Constructor
+// NewYenePayCheckOut - YenePayCheckOut Constructor
 func NewYenePayCheckOut() *YenePayCheckOut {
 	return &YenePayCheckOut{}
 }
 
-// Generate Checkout URL for Express Checkout
-func (self *YenePayCheckOut) ExpressCheckoutUrl(checkoutOptions *CheckoutOption, checkoutItem *ExpressCheckoutItem) string {
+// ExpressCheckoutURL - Generate Checkout URL for Express Checkout
+func (checkout *YenePayCheckOut) ExpressCheckoutURL(checkoutOptions *Option, checkoutItem *ExpressCheckoutItem) string {
 
 	optsQs, _ := query.Values(checkoutOptions.GetExpressFields())
 
 	itemQs, _ := query.Values(checkoutItem)
 
-	checkoutUrl := CHECKOUT_BASE_URL_PROD + "?" + optsQs.Encode() + "&" + itemQs.Encode()
+	checkoutURL := checkoutBaseURLProd + "?" + optsQs.Encode() + "&" + itemQs.Encode()
 
 	if checkoutOptions.UseSandbox {
-		checkoutUrl = CHECKOUT_BASE_URL_SANDBOX + "?" + optsQs.Encode() + "&" + itemQs.Encode()
+		checkoutURL = checkoutBaseURLSandbox + "?" + optsQs.Encode() + "&" + itemQs.Encode()
 	}
 
-	return checkoutUrl
+	return checkoutURL
 }
 
-// Generate Checkout URL for Cart Checkout
-func (self *YenePayCheckOut) CartCheckoutUrl(checkoutOptions *CheckoutOption, cartItems []CartCheckoutItem) string {
+// CartCheckoutURL - Generate Checkout URL for Cart Checkout
+func (checkout *YenePayCheckOut) CartCheckoutURL(checkoutOptions *Option, cartItems []CartCheckoutItem) string {
 
 	v, _ := query.Values(checkoutOptions)
 
-	checkoutUrl := CHECKOUT_BASE_URL_PROD + "?" + v.Encode()
+	checkoutURL := checkoutBaseURLProd + "?" + v.Encode()
 
 	if checkoutOptions.UseSandbox {
-		checkoutUrl = CHECKOUT_BASE_URL_SANDBOX + "?" + v.Encode()
+		checkoutURL = checkoutBaseURLSandbox + "?" + v.Encode()
 	}
 
 	for i, item := range cartItems {
@@ -70,23 +71,23 @@ func (self *YenePayCheckOut) CartCheckoutUrl(checkoutOptions *CheckoutOption, ca
 		typeOfS := v.Type()
 
 		for j := 0; j < v.NumField(); j++ {
-			checkoutUrl += fmt.Sprintf("&Items[%d].%s=%v", i, typeOfS.Field(j).Name, v.Field(j).Interface())
+			checkoutURL += fmt.Sprintf("&Items[%d].%s=%v", i, typeOfS.Field(j).Name, v.Field(j).Interface())
 		}
 	}
 
-	return checkoutUrl
+	return checkoutURL
 }
 
-// WIP: check IPN authenticity
-func (self *YenePayCheckOut) IsIPNAuthentic(ipnModel interface{}, useSandbox bool) (bool, error) {
-	ipnUrl := IPN_VERIFY_URL_PROD
+// IsIPNAuthentic - check IPN authenticity (WIP)
+func (checkout *YenePayCheckOut) IsIPNAuthentic(ipnModel interface{}, useSandbox bool) (bool, error) {
+	ipnURL := ipnVerifyURLProd
 
 	if useSandbox {
-		ipnUrl = IPN_VERIFY_URL_SANDBOX
+		ipnURL = ipnVerifyURLSandbox
 	}
 
 	reqBody, _ := json.Marshal(ipnModel)
-	resp, err := http.Post(ipnUrl, "application/json", bytes.NewBuffer(reqBody))
+	resp, err := http.Post(ipnURL, "application/json", bytes.NewBuffer(reqBody))
 
 	if err != nil {
 		fmt.Print(err)
@@ -105,16 +106,16 @@ func (self *YenePayCheckOut) IsIPNAuthentic(ipnModel interface{}, useSandbox boo
 	return true, nil
 }
 
-// WIP: Request PDT model
-func (self *YenePayCheckOut) RequestPDT(pdtReq PdtRequestModel) (interface{}, error) {
-	pdtUrl := PDT_URL_PROD
+// RequestPDT - Request PDT model (WIP)
+func (checkout *YenePayCheckOut) RequestPDT(pdtReq PdtRequest) (interface{}, error) {
+	pdtURL := pdtURLProd
 
 	if pdtReq.UseSandbox {
-		pdtUrl = PDT_URL_SANDBOX
+		pdtURL = pdtURLSandbox
 	}
 
 	reqBody, _ := json.Marshal(pdtReq)
-	resp, err := http.Post(pdtUrl, "application/json", bytes.NewBuffer(reqBody))
+	resp, err := http.Post(pdtURL, "application/json", bytes.NewBuffer(reqBody))
 
 	if err != nil {
 		fmt.Print(err)
@@ -128,7 +129,6 @@ func (self *YenePayCheckOut) RequestPDT(pdtReq PdtRequestModel) (interface{}, er
 
 	if err != nil {
 		return nil, err
-	} else {
-		return result, nil
 	}
+	return result, nil
 }

@@ -25,7 +25,7 @@ func TestItemToJSON(t *testing.T) {
 
 	expected := `
 	{
-		"ItemId" : "2",
+		"ItemID" : "2",
 		"ItemName" : "item-name",
 		"UnitPrice": 10.0,
 		"Quantity": 2,
@@ -44,8 +44,8 @@ func TestItemToJSON(t *testing.T) {
 	if assert.Error(t, actualError) {
 		for _, err := range actualError.(validator.ValidationErrors) {
 			switch err.Field() {
-			case "ItemId":
-				assert.Exactly(t, "ItemId", err.Field())
+			case "ItemID":
+				assert.Exactly(t, "ItemID", err.Field())
 				assert.Exactly(t, "required", err.Tag())
 			case "ItemName":
 				assert.Exactly(t, "ItemName", err.Field())
@@ -59,7 +59,7 @@ func TestItemToJSON(t *testing.T) {
 func TestNewExpressCheckoutItem(t *testing.T) {
 	item := NewExpressCheckoutItem(
 		ExpressParams{
-			ItemId:    "2",
+			ItemID:    "2",
 			ItemName:  "item-name",
 			UnitPrice: 10.0,
 			Quantity:  2,

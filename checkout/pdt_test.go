@@ -8,12 +8,12 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestNewPdtRequestModel(t *testing.T) {
-	pdt := NewPdtRequestModel(
+func TestNewPdtRequest(t *testing.T) {
+	pdt := NewPdtRequest(
 		PdtParams{
 			PdtToken:        "test",
-			TransactionId:   "1234",
-			MerchantOrderId: "2345",
+			TransactionID:   "1234",
+			MerchantOrderID: "2345",
 			UseSandbox:      true,
 		},
 	)
@@ -30,11 +30,11 @@ func TestNewPdtRequestModel(t *testing.T) {
 }
 
 func TestPDTToJSON(t *testing.T) {
-	actual, _ := NewPdtRequestModel(
+	actual, _ := NewPdtRequest(
 		PdtParams{
 			PdtToken:        "test",
-			TransactionId:   "1234",
-			MerchantOrderId: "2345",
+			TransactionID:   "1234",
+			MerchantOrderID: "2345",
 			UseSandbox:      true,
 		},
 	).ToJSON()
@@ -42,8 +42,8 @@ func TestPDTToJSON(t *testing.T) {
 	expected := `
 	{
 		"PdtToken": "test",
-		"TransactionId": "1234",
-		"MerchantOrderId": "2345",
+		"TransactionID": "1234",
+		"MerchantOrderID": "2345",
 		"RequestType": "PDT"
 	}
 	`

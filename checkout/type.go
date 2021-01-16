@@ -1,9 +1,10 @@
 package checkout
 
-type CheckoutType string
+// Type - model
+type Type string
 
-// Express Checkout Type
-const ExpressCheckout CheckoutType = "Express"
+// ExpressCheckout - Express Checkout Type
+const ExpressCheckout Type = "Express"
 
-// Cart Checkout Type
-const CartCheckout CheckoutType = "Cart"
+// CartCheckout - Cart Checkout Type
+const CartCheckout Type = "Cart"

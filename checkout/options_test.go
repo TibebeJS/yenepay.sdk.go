@@ -71,13 +71,13 @@ func TestOptionsToJSONForExpress(t *testing.T) {
 	{
 		"UseSandbox": true,
 		"Process": "Express",
-		"MerchantId": "2",
-		"SuccessUrl": "localhost:8000/success",
-		"CancelUrl": "localhost:8000/cancel",
-		"IPNUrl": "localhost:8000/ipn",
-		"FailureUrl": "localhost:8000/failure",
+		"MerchantID": "2",
+		"SuccessURL": "localhost:8000/success",
+		"CancelURL": "localhost:8000/cancel",
+		"IPNURL": "localhost:8000/ipn",
+		"FailureURL": "localhost:8000/failure",
 		"ExpiresAfter": 2,
-		"MerchantOrderId": "2"
+		"MerchantOrderID": "2"
 	}
 	`
 
@@ -108,13 +108,13 @@ func TestOptionsToJSONForCart(t *testing.T) {
 	{
 		"UseSandbox": true,
 		"Process": "Express",
-		"MerchantId": "2",
-		"SuccessUrl": "localhost:8000/success",
-		"CancelUrl": "localhost:8000/cancel",
-		"IPNUrl": "localhost:8000/ipn",
-		"FailureUrl": "localhost:8000/failure",
+		"MerchantID": "2",
+		"SuccessURL": "localhost:8000/success",
+		"CancelURL": "localhost:8000/cancel",
+		"IPNURL": "localhost:8000/ipn",
+		"FailureURL": "localhost:8000/failure",
 		"ExpiresAfter": 2,
-		"MerchantOrderId": "2",
+		"MerchantOrderID": "2",
 		"TotalItemsDeliveryFee": 10.0,
 		"TotalItemsTax1": 2.0,
 		"TotalItemsTax2": 0.0,
