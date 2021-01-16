@@ -17,7 +17,7 @@ func TestNewYenePayCheckOut(t *testing.T) {
 func TestGetCheckoutURLForExpress(t *testing.T) {
 
 	actual := NewYenePayCheckOut().ExpressCheckoutURL(
-		NewCheckoutOption(
+		NewOption(
 			OptionsParams{
 				true,
 				ExpressCheckout,

@@ -11,7 +11,7 @@ func main() {
 	yenepay := checkout.NewYenePayCheckOut()
 
 	fmt.Println("***************[ Express Checkout ]***************")
-	fmt.Println(yenepay.ExpressCheckoutURL(checkout.NewCheckoutOption(
+	fmt.Println(yenepay.ExpressCheckoutURL(checkout.NewOption(
 		checkout.OptionsParams{
 			UseSandbox:      true,
 			Process:         checkout.ExpressCheckout,
@@ -29,7 +29,7 @@ func main() {
 
 	fmt.Println("***************[ Cart Checkout ]***************")
 
-	fmt.Println(yenepay.CartCheckoutURL(checkout.NewCheckoutOption(
+	fmt.Println(yenepay.CartCheckoutURL(checkout.NewOption(
 		checkout.OptionsParams{
 			UseSandbox:      true,
 			Process:         checkout.ExpressCheckout,
